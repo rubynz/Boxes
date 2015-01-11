@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box      = "ubuntu/trusty64"
+  config.vm.hostname = "dnsmasq.rc"
+
+  config.vm.network "public_network", mac: "020000000001", ip: "10.0.0.1"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui    = false
+    vb.memory = "256"
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get install -y --force-yes dnsmasq
+    sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
+    sudo mv /etc/hosts /etc/hosts.orig
+    sudo ln -s /vagrant/dnsmasq.conf /etc/dnsmasq.conf
+    sudo ln -s /vagrant/hosts /etc/hosts
+    sudo ln -s /vagrant/ethers /etc/ethers
+    sudo service dnsmasq restart
+  SHELL
+end

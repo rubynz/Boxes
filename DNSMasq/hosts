@@ -1,0 +1,4 @@
+10.0.0.1   dnsmasq.rc dnsmasq
+10.0.0.2   ntp.rc ntp
+
+10.0.0.254 rubynz.rc rubynz
