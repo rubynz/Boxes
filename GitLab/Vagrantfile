@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+GITLAB_DEB = "gitlab_7.6.2-omnibus.5.3.0.ci.1-1_amd64.deb"
+
+Vagrant.configure(2) do |config|
+  config.vm.box      = "ubuntu/trusty64"
+  config.vm.hostname = "gitlab.rc"
+
+  config.vm.network "public_network", mac: "020000000003", ip: "10.0.0.3"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui    = false
+    vb.memory = "1024"
+    vb.cpus   = 2
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get install -y openssh-server
+    sudo apt-get install -y postfix
+    (
+      cd /vagrant
+      wget -N https://downloads-packages.s3.amazonaws.com/ubuntu-14.04/#{GITLAB_DEB}
+      sudo dpkg -i #{GITLAB_DEB}
+    )
+    sudo cp /etc/gitlab/gitlab.rb /etc/gitlab/gitlab.rb.orig
+    sudo cp /vagrant/gitlab.rb /etc/gitlab/gitlab.rb
+    sudo gitlab-ctl reconfigure
+    (
+      cd /opt/gitlab/embedded/service/gitlab-rails/app/models
+      sudo patch < /vagrant/auto_confirm.patch
+    )
+    sudo gitlab-ctl restart
+  SHELL
+end

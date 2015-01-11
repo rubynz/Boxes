@@ -1,0 +1,24 @@
+--- user.rb.orig	2015-01-10 20:53:40.369172619 +0000
++++ user.rb	2015-01-10 19:16:38.650782073 +0000
+@@ -180,6 +180,8 @@
+   scope :without_projects, -> { where('id NOT IN (SELECT DISTINCT(user_id) FROM members)') }
+   scope :potential_team_members, ->(team) { team.members.any? ? active.not_in_team(team) : active  }
+
++  after_create :confirm!
++
+   #
+   # Class methods
+   #
+@@ -243,6 +245,11 @@
+   # Instance methods
+   #
+
++  # Added by @jamesotron for Rails Camp.
++  def send_confirmation_notification?
++    false
++  end
++
+   def to_param
+     username
+   end
+
