@@ -7,7 +7,8 @@ Vagrant.configure(2) do |config|
   config.vm.box      = "ubuntu/trusty64"
   config.vm.hostname = "gitlab.rc"
 
-  config.vm.network "public_network", mac: "0214B050DB9E", ip: "10.0.0.3"
+  config.vm.network "public_network", mac: "0214B050DB9E", ip: "172.16.0.3", bridge: "en0: Ethernet"
+
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui    = false
