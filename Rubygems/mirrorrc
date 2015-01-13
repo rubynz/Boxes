@@ -1,0 +1,4 @@
+---
+- from: https://rubygems.org
+  to: "/vagrant/mirror"
+  parallelism: 10

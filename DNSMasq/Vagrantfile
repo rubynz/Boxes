@@ -5,7 +5,7 @@ Vagrant.configure(2) do |config|
   config.vm.box      = "ubuntu/trusty64"
   config.vm.hostname = "dnsmasq.rc"
 
-  config.vm.network "public_network", mac: "020000000001", ip: "10.0.0.1"
+  config.vm.network "public_network", mac: "02EAAC9CAAAE", ip: "10.0.0.1", netmask: "255.255.0.0"
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui    = false

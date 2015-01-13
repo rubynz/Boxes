@@ -1,0 +1,39 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box      = "ubuntu/trusty64"
+  config.vm.hostname = "rubygems.rc"
+
+  config.vm.network "public_network", mac: "020000000005", ip: "10.0.0.5"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui    = false
+    vb.memory = "768"
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get install -y nginx
+
+    echo "Configuring NGINX as Rubygems server"
+    sudo rm /etc/nginx/sites-enabled/default
+    sudo cp /vagrant/nginx.conf /etc/nginx/conf.d/mirror.conf
+    sudo service nginx restart
+
+
+    echo "Installing Ruby 2.1"
+    gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3
+    curl -sSL https://get.rvm.io | sudo bash -s stable
+    sudo usermod -G rvm -a vagrant
+    source /etc/profile.d/rvm.sh
+    rvm install --default ruby-2.1
+
+    echo "Installing rubygems-mirror"
+    gem install rubygems-mirror
+    gem install builder
+    mkdir -p /home/vagrant/.gem
+    cp /vagrant/mirrorrc /home/vagrant/.gem/.mirrorrc
+    echo "@hourly /vagrant/mirror.sh" | crontab -
+  SHELL
+end
