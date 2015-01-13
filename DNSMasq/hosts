@@ -2,6 +2,6 @@
 172.16.0.2   ntp.rc      ntp
 172.16.0.3   gitlab.rc   gitlab
 172.16.0.4   www.rc      www
-172.16.0.5   rubygems.rc rubygems
+172.16.0.5   rubygems.rc rubygems rubygems.org
 
 172.16.0.254 rubynz.rc   rubynz
