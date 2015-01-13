@@ -5,7 +5,7 @@ Vagrant.configure(2) do |config|
   config.vm.box      = "ubuntu/trusty64"
   config.vm.hostname = "www.rc"
 
-  config.vm.network "public_network", mac: "0295EAA47613", ip: "172.16.0.4", bridge: "en0: Ethernet"
+  config.vm.network "public_network", mac: "0295EAA47613", ip: "172.16.0.4", netmask: "255.255.0.0", bridge: "en0: Ethernet"
 
 
   config.vm.provider "virtualbox" do |vb|
