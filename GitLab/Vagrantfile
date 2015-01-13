@@ -32,6 +32,17 @@ Vagrant.configure(2) do |config|
       cd /opt/gitlab/embedded/service/gitlab-rails/app/models
       sudo patch < /vagrant/auto_confirm.patch
     )
+    (
+      # Replace these with your camp's icons.
+      cd /opt/gitlab/embedded/service/gitlab-rails/app/assets/images
+      sudo cp /vagrant/georgie_icon.png logo-white.png
+      sudo co /vagrant/georgie_icon.png logo-black.png
+    )
+    (
+      cd /opt/gitlab/embedded/service/gitlab-rails
+      sudo chown -R git public/assets
+      gitlab-rake assets:precompile
+    )
     sudo gitlab-ctl restart
   SHELL
 end
