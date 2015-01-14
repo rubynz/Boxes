@@ -1,0 +1,8 @@
+production:
+  adapter: postgresql
+  host: localhost
+  database: kandan_production
+  pool: 5
+  timeout: 5000
+  username: vagrant
+  password: vagrant

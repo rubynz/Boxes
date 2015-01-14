@@ -1,0 +1,47 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  config.vm.box      = "ubuntu/trusty64"
+  config.vm.hostname = "chat.rc"
+
+  config.vm.network "public_network", mac: "026FD34D4105", ip: "172.16.0.6", netmask: "255.255.0.0", bridge: "en0 Ethernet"
+
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui    = false
+    vb.memory = "768"
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get update
+    sudo apt-get install -y nginx ruby1.9.1-dev ruby-bundler libxslt-dev libxml2-dev libpq-dev libsqlite3-dev build-essential nodejs git postgresql
+
+    sudo -u postgres psql -c "create user vagrant with password 'vagrant';"
+    sudo -u postgres psql -c "alter user vagrant superuser;"
+
+    echo "Cloning Kandan"
+    cd /home/vagrant
+    git clone https://github.com/kandanapp/kandan.git
+    cd kandan
+    mkdir -p log tmp
+    bundle install
+    cp /vagrant/database.yml config/database.yml
+    export RAILS_ENV=production
+    bundle exec rake db:create db:migrate kandan:bootstrap
+    bundle exec rake assets:precompile
+    chown -R vagrant ../kandan
+
+    sudo gem install foreman
+    echo "RAILS_ENV=production" > .env
+    echo "RACK_ENV=production" >> .env
+    sudo foreman export upstart -p 8000 -u vagrant -a kandan /etc/init
+    sudo initctl reload-configuration
+    sudo initctl start kandan
+
+    echo "Configuring NGINX as reverse proxy"
+    sudo rm /etc/nginx/sites-enabled/default
+    sudo cp /vagrant/nginx.conf /etc/nginx/conf.d/kandan.conf
+    sudo service nginx restart
+  SHELL
+end
