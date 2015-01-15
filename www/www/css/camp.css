@@ -45,6 +45,16 @@ h3 {
 .heading {
   margin-top: 24px;
 }
-.orbit-prev,.orbit-next {
+.orbit-prev,.orbit-next,.orbit-slide-number,.orbit-timer {
   display: none;
 }
+.sponsors img {
+  margin-left: auto;
+  margin-right: auto;
+}
+.sponsors .gold {
+  max-height: 180px;
+}
+.sponsors .silver {
+  max-height: 120px;
+};
