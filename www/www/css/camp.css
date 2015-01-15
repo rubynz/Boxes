@@ -1,0 +1,77 @@
+@font-face {
+  font-family: 'OpenSans-Light';
+  src: url('fonts/OpenSans-Light.eot');
+  src: url('fonts/OpenSans-Light.eot?#iefix') format('embedded-opentype'),
+  url('fonts/OpenSans-Light.svg#my-font-family') format('svg'),
+  url('fonts/OpenSans-Light.woff') format('woff'),
+  url('fonts/OpenSans-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Questa-Grande-Regular';
+  src: url('fonts/Questa-Grande-Regular.eot');
+  src: url('fonts/Questa-Grande-Regular.eot?#iefix') format('embedded-opentype'),
+  url('fonts/Questa-Grande-Regular.svg#my-font-family') format('svg'),
+  url('fonts/Questa-Grande-Regular.woff') format('woff'),
+  url('fonts/Questa-Grande-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'OpenSans-Light', Helvetica, sans-serif;
+}
+th {
+  font-family: 'OpenSans-Light', Helvetica, sans-serif;
+}
+code {
+  font-family: monospace;
+}
+
+h1,h2,h3 {
+  line-height: 1em;
+}
+h1 {
+  font-family: 'Questa-Grande-Regular', Times, serif;
+  font-size: 80px;
+}
+h2 {
+  font-family: 'OpenSans-Light', Helvetica, sans-serif;
+  font-size: 38px;
+  text-transform: uppercase;
+}
+h3 {
+  font-family: 'Questa-Grande-Regular', Times, serif;
+  font-size: 42px;
+  color: #AE1916;
+}
+h4 {
+  font-family: 'Questa-Grande-Regular', Times, serif;
+  font-size: 24px;
+}
+
+.heading {
+  margin-top: 24px;
+}
+.orbit-prev,.orbit-next,.orbit-slide-number,.orbit-timer,.orbit-bullets {
+  display: none;
+}
+.sponsors img {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  max-height: 120px;
+}
+
+.content {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.side-nav li a {
+  font-family: 'OpenSans-Light', Helvetica, sans-serif !important;
+  font-size: 1.5em !important;
+  color: black !important;
+}
