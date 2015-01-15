@@ -14,6 +14,10 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
+    echo "Disabling SSH password auth"
+    sudo sed -e 's/PasswordAuthentication\ yes/PasswordAuthentication\ no/' -i /etc/ssh/sshd_config
+    sudo service ssh restart
+
     sudo apt-get update
     sudo apt-get install -y nginx ruby1.9.1-dev ruby-bundler libxslt-dev libxml2-dev libpq-dev libsqlite3-dev build-essential nodejs git postgresql
 

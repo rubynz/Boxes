@@ -14,6 +14,10 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
+    echo "Disabling SSH password auth"
+    sudo sed -e 's/PasswordAuthentication\ yes/PasswordAuthentication\ no/' -i /etc/ssh/sshd_config
+    sudo service ssh restart
+
     sudo apt-get update
     sudo apt-get install -y --force-yes nginx
     sudo rm /etc/nginx/sites-available/default
