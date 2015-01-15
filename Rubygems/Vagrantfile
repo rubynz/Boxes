@@ -35,6 +35,6 @@ Vagrant.configure(2) do |config|
     gem install builder
     mkdir -p /home/vagrant/.gem
     cp /vagrant/mirrorrc /home/vagrant/.gem/.mirrorrc
-    echo "@hourly /vagrant/mirror.sh" | crontab -
+    echo "@hourly /vagrant/mirror.sh" | sudo crontab -u vagrant -
   SHELL
 end
