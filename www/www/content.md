@@ -18,7 +18,8 @@ a link to the schedule (as a page/pdf downloaded from gdocs)
 # Wifi & DNS
 
 * SSID: RCNZ
-* No password required
+* Encryption: WPA/WPA2 Personal
+* Password: RCNZ2015
 
 Ensure that your wifi is configured to use DHCP and everything should just work.  If not then seek out one of the aforementioned redshirts.
 
